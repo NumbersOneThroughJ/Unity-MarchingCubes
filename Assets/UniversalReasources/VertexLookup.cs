@@ -38,10 +38,8 @@ namespace VertexLookup
             int temp = 0;
             foreach (float val in values)
             {
-                print(val + " " + minValue);
                 if (val >= minValue)
                 {
-                    print(temp + "is active");
                     index += increase;
                 }
                 increase = increase << 1;
@@ -82,7 +80,7 @@ namespace VertexLookup
         public float[] values = new float[8];
 
         //relative location to the center of a cube
-        static readonly Vector3[] edgeLocationRelative = 
+        protected static readonly Vector3[] edgeLocationRelative = 
         {
             new Vector3(-.5f,-.5f,-.5f),//0
             new Vector3(.5f,-.5f,-.5f),//1

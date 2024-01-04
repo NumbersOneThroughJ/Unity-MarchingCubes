@@ -9,20 +9,36 @@ namespace CpuMarchingCubes
     public class CubeMeshBuilderScriptInteractor : VertexLookup.VertexCorneredCube
     {
         [SerializeField]
-        public slidableCornerBox.SphereControl[] Spheres = new slidableCornerBox.SphereControl[8];
+        public bool UpdateMeshButton = false;
         [SerializeField]
         private GameObject mesh;
+        [SerializeField]
+        public Map map;
+        [SerializeField]
+        [Range(-10f, 10f)]
+        private float targetValue = 1f;
 
-        /* converts the enabled status of the spheres into
-         * usable data for the VertexLookup Class. 
-         * 1f for on
-         * 0f for off
-         */
-        private void loadSpheres()
+        public void Update()
         {
-            for (int i = 0; i < Spheres.Length; i++)
+            if (UpdateMeshButton)
             {
-                values[i] = Spheres[i].getValue();
+                UpdateMeshButton = false;
+                makeMesh();
+            }
+        }
+
+        /* Grabs the values from map
+         */
+        private void grabValues()
+        {
+            int i = 0;
+            Vector3 location = transform.localPosition;
+            foreach (Vector3 loc in edgeLocationRelative)
+            {
+                Vector3 target = location + loc;
+                values[i] = map.getVal(target);
+                print(target+ " "+values[i]);
+                i++;
             }
         }
 
@@ -53,7 +69,7 @@ namespace CpuMarchingCubes
             //interpolating in between
             return
                 calculateInterpolation(
-                    SphereControl.targetValue,
+                    targetValue,
                     start,
                     end,
                     values[indicies[0]],
@@ -71,9 +87,9 @@ namespace CpuMarchingCubes
 
             mu = (targetValue - p1Val) / (p2Val - p1Val);
             
-            returnPoint.x = (p1.x + (mu * (p2.x - p1.x)));
-            returnPoint.y = (p1.y + (mu * (p2.y - p1.y)));
-            returnPoint.z = (p1.z + (mu * (p2.z - p1.z)));
+            returnPoint.x = (p1.x + (mu * (p2.x - p1.x))) + transform.localPosition.x;
+            returnPoint.y = (p1.y + (mu * (p2.y - p1.y))) + transform.localPosition.y;
+            returnPoint.z = (p1.z + (mu * (p2.z - p1.z))) + transform.localPosition.z;
 
             return returnPoint;
         }
@@ -91,8 +107,9 @@ namespace CpuMarchingCubes
 
         public void makeMesh()
         {
-            loadSpheres();
-            updateMesh(getMesh(SphereControl.targetValue));
+            //loadSpheres();
+            grabValues();
+            updateMesh(getMesh(targetValue));
         }
     }
 }

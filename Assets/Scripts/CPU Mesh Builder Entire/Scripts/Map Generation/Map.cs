@@ -14,7 +14,7 @@ public class Map : MonoBehaviour
     [SerializeField]
     float maxValue = 10;
     [SerializeField] 
-    float scale = 10;
+    float scale = 1;
     [SerializeField]
     MapGenerationSettings sets = new MapGenerationSettings();
 
@@ -69,7 +69,7 @@ public class Map : MonoBehaviour
             {
                 for(int x = 0; x<sizeX; x++)
                 {
-                    valuesMap[x, y, z] = (Noise.CalcPixel3D(x, y, z, scale) / 255) * maxValue;
+                    valuesMap[x, y, z] = (Noise.CalcPixel3D(x, y, z, scale) / 255f) * maxValue;
                         //evaluatePoint(x, y, z);
                 }
             }

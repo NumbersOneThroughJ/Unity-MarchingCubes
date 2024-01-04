@@ -37,7 +37,6 @@ namespace CpuMarchingCubes
             {
                 Vector3 target = location + loc;
                 values[i] = map.getVal(target);
-                print(target+ " "+values[i]);
                 i++;
             }
         }
@@ -86,10 +85,10 @@ namespace CpuMarchingCubes
             if (Mathf.Abs(p1Val - p2Val) < .0001) return p1;
 
             mu = (targetValue - p1Val) / (p2Val - p1Val);
-            
-            returnPoint.x = (p1.x + (mu * (p2.x - p1.x))) + transform.localPosition.x;
-            returnPoint.y = (p1.y + (mu * (p2.y - p1.y))) + transform.localPosition.y;
-            returnPoint.z = (p1.z + (mu * (p2.z - p1.z))) + transform.localPosition.z;
+
+            returnPoint.x = (p1.x + (mu * (p2.x - p1.x)));// + transform.localPosition.x;
+            returnPoint.y = (p1.y + (mu * (p2.y - p1.y)));// + transform.localPosition.y;
+            returnPoint.z = (p1.z + (mu * (p2.z - p1.z)));// + transform.localPosition.z;
 
             return returnPoint;
         }

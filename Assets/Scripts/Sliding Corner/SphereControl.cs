@@ -8,8 +8,8 @@ namespace slidableCornerBox
     {
         //[SerializeField]
         //public static float maxValue = 10;
-        [SerializeField]
-        public static float minValue = 0;
+        //[SerializeField]
+        //public static float minValue = 0;
         [SerializeField]
         [Range(0f,10f)]
         public static float targetValue = 6;
@@ -28,7 +28,7 @@ namespace slidableCornerBox
 
         public bool getEnabled() { return cornerEnabled; }
         public float getValue() { return value; }
-        public float getMinValue() { return minValue; }
+        //public float getMinValue() { return minValue; }
         public void setValue(float val) { value = val; } 
 
         // Start is called before the first frame update
@@ -54,7 +54,7 @@ namespace slidableCornerBox
         //checks if the corner has a visable value
         private bool checkValue()
         {
-            return value >= minValue;
+            return value >= targetValue;
         }
 
         private void updateColor()

@@ -1,0 +1,12 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Hello
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWStructuredBuffer<float3> Result;
+
+[numthreads(3,3,1)]
+void Hello (uint3 id : SV_DispatchThreadID)
+{
+    Result[id.x + id.y*3] = float3(id.x,id.y,0);
+}

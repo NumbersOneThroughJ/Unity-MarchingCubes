@@ -45,7 +45,6 @@ namespace VertexLookup
                 increase = increase << 1;
                 temp++;
             }
-            print("Index is " + index);
             return index;
         }
 

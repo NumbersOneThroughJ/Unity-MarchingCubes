@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class OveralMesh : MonoBehaviour
 {
+    private readonly int MAPRANGE = 16;
+
     [SerializeField]
     private CubeControls cube;
     [SerializeField]
@@ -42,24 +44,26 @@ public class OveralMesh : MonoBehaviour
         {
             step = false;
             world.mesh = combineMeshes(world.mesh, cube.getMesh());
-            cube.stepForward(16,16,16);
+            cube.stepForward(MAPRANGE,MAPRANGE,MAPRANGE);
         }
         if (bigStep)
         {
-            for(int i = 0; i<(16*16); i++)
+            for(int i = 0; i<(MAPRANGE*MAPRANGE); i++)
             {
                 bigStep = false;
                 world.mesh = combineMeshes(world.mesh, cube.getMesh());
-                cube.stepForward(16, 16, 16);
+                cube.stepForward(MAPRANGE, MAPRANGE, MAPRANGE);
             }
         }
         if (bigBIGStep)
         {
-            for (int i = 0; i < (16 * 16*16); i++)
+            world.mesh = new Mesh();
+            cube.regenerateMap();
+            for (int i = 0; i < (MAPRANGE * MAPRANGE*MAPRANGE); i++)
             {
                 bigBIGStep = false;
                 world.mesh = combineMeshes(world.mesh, cube.getMesh());
-                cube.stepForward(16, 16, 16);
+                cube.stepForward(MAPRANGE, MAPRANGE, MAPRANGE);
             }
         }
 

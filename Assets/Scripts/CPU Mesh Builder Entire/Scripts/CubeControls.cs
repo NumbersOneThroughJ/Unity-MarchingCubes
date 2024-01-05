@@ -10,7 +10,10 @@ public class CubeControls : MonoBehaviour
     [SerializeField]
     public MeshFilter cubeMesh;
 
-
+    public void regenerateMap()
+    {
+        builder.map.regenerateMap();
+    }
     public void setLocation(float x, float y, float z) {
         transform.localPosition = new Vector3(x + .5f, y + .5f, z + .5f);
     }

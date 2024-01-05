@@ -27,7 +27,7 @@ namespace SimplexNoise
             var values = new float[width, height];
             for (var i = 0; i < width; i++)
                 for (var j = 0; j < height; j++)
-                    values[i, j] = Generate(i * scale, j * scale) * 128 + 128;
+                    values[i, j] = Generate(i * scale, j * scale);// * 128 + 128;
             return values;
         }
 

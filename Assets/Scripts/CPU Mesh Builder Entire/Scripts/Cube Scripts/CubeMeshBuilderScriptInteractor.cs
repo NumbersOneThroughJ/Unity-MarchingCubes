@@ -15,7 +15,7 @@ namespace CpuMarchingCubes
         [SerializeField]
         public Map map;
         [SerializeField]
-        [Range(-10f, 10f)]
+        [Range(0f, 256f)]
         private float targetValue = 1f;
 
         public void Update()

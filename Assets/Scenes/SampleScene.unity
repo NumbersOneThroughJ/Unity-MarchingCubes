@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 228775796}
-  - component: {fileID: 228775797}
   - component: {fileID: 228775798}
   - component: {fileID: 228775800}
   - component: {fileID: 228775799}
@@ -158,24 +157,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1736709774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &228775797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 228775795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a7abd42cd3c2a1449a0f1d09af5bcc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sizeX: 16
-  sizeY: 16
-  sizeZ: 16
-  maxValue: 10
-  scale: 10
-  sets: {fileID: 228775798}
 --- !u!114 &228775798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +224,115 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228775795}
   m_Mesh: {fileID: 0}
+--- !u!1 &407136818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407136821}
+  - component: {fileID: 407136820}
+  - component: {fileID: 407136819}
+  - component: {fileID: 407136822}
+  m_Layer: 0
+  m_Name: Terrain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 0
+--- !u!154 &407136819
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407136818}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_TerrainData: {fileID: 15600000, guid: 2f205e616b71520448e5c5c4e8ffdbc7, type: 2}
+  m_EnableTreeColliders: 1
+--- !u!218 &407136820
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407136818}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: 2f205e616b71520448e5c5c4e8ffdbc7, type: 2}
+  m_TreeDistance: 5000
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 50
+  m_DetailObjectDistance: 80
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 5
+  m_SplatMapDistance: 1000
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 2
+  m_DrawHeightmap: 1
+  m_DrawInstanced: 0
+  m_DrawTreesAndFoliage: 1
+  m_StaticShadowCaster: 0
+  m_IgnoreQualitySettings: 0
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_BakeLightProbesForTrees: 1
+  m_PreserveTreePrototypeLayers: 0
+  m_DeringLightProbesForTrees: 1
+  m_ReceiveGI: 1
+  m_ScaleInLightmap: 0.0256
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 1
+  m_EnableHeightmapRayTracing: 1
+  m_EnableTreesAndDetailsRayTracing: 0
+  m_TreeMotionVectorModeOverride: 3
+--- !u!4 &407136821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407136818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &407136822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407136818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b5f1801fae6ff4489a46dcecfdf560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lengthX: 100
+  lengthY: 100
+  scale: 1
+  hmap: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +617,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2119319584}
@@ -618,7 +708,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e4dcee45077194b9fc16cf8a9158b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cube: {fileID: 2119319608}
+  world: {fileID: 228775800}
   step: 0
+  bigStep: 0
+  bigBIGStep: 0
 --- !u!4 &2119319584 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8562159244214248242, guid: e4330e512f9091548a9438a327c606d9, type: 3}
@@ -653,7 +747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   builder: {fileID: 2119319599}
-  cubeMesh: {fileID: 2130107387}
+  cubeMesh: {fileID: 2130107390}
 --- !u!1 &2130107387
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +777,7 @@ Transform:
   m_GameObject: {fileID: 2130107387}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.5, z: -0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -772,7 +866,7 @@ MonoBehaviour:
   sizeY: 16
   sizeZ: 16
   maxValue: 10
-  scale: 10
+  scale: 0.146
   sets: {fileID: 2130107391}
 --- !u!1 &2147082426
 GameObject:
@@ -831,14 +925,14 @@ PrefabInstance:
     - target: {fileID: 1824191369548361013, guid: e4330e512f9091548a9438a327c606d9, type: 3}
       propertyPath: map
       value: 
-      objectReference: {fileID: 228775797}
+      objectReference: {fileID: 2130107392}
     - target: {fileID: 1824191369548361013, guid: e4330e512f9091548a9438a327c606d9, type: 3}
       propertyPath: mesh
       value: 
       objectReference: {fileID: 2130107387}
     - target: {fileID: 1824191369548361013, guid: e4330e512f9091548a9438a327c606d9, type: 3}
       propertyPath: targetValue
-      value: 6
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 8562159244214248242, guid: e4330e512f9091548a9438a327c606d9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -907,3 +1001,4 @@ SceneRoots:
   - {fileID: 1678509860}
   - {fileID: 2147082427}
   - {fileID: 1736709774}
+  - {fileID: 407136821}

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class OveralMesh : MonoBehaviour
 {
-    private readonly int MAPRANGE = 16;
+    private readonly int MAPRANGE = 9;
 
     [SerializeField]
     private CubeControls cube;

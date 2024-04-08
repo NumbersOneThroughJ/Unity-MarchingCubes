@@ -14,7 +14,7 @@ public class HelloFromAllCores : MonoBehaviour
 
     void Awake()
     {
-        Hellos = new ComputeBuffer(3*3, 3*4);
+        Hellos = new ComputeBuffer(2*2*2, sizeof(float)*3);
     }
 
     void OnDisable()
@@ -25,27 +25,16 @@ public class HelloFromAllCores : MonoBehaviour
 
     private void OnEnable()
     {
-        Hellos = new ComputeBuffer(3 * 3, 3 * 4);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Hellos = new ComputeBuffer(2*2*2, 3 * 4);
     }
 
     void OnMouseDown()
     {
-        HelloShader.SetBuffer(0, helloBufferID, Hellos);
-        HelloShader.Dispatch(0, 1, 1, 1);
-        Vector3[] HelloVectors = new Vector3[9]; Hellos.GetData(HelloVectors);
-
+        int HelloID = HelloShader.FindKernel("Hello");
+        HelloShader.SetBuffer(HelloID, helloBufferID, Hellos);
+        HelloShader.Dispatch(HelloID, 1, 1, 1);
+        Vector3[] HelloVectors = new Vector3[Hellos.count]; Hellos.GetData(HelloVectors);
+        
         print("Hello");
 
         foreach(Vector3 v in HelloVectors)

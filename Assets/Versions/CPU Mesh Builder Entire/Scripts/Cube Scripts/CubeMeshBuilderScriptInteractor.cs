@@ -33,6 +33,7 @@ namespace CpuMarchingCubes
         {
             int i = 0;
             Vector3 location = transform.localPosition;
+            print("Local position is " + transform.localPosition);
             foreach (Vector3 loc in edgeLocationRelative)
             {
                 Vector3 target = location + loc;
@@ -72,11 +73,12 @@ namespace CpuMarchingCubes
                     start,
                     end,
                     values[indicies[0]],
-                    values[indicies[1]]
+                    values[indicies[1]],
+                    transform.localPosition
                 );
         }
 
-        private Vector3 calculateInterpolation(float targetValue, Vector3 p1, Vector3 p2, float p1Val, float p2Val)
+        private Vector3 calculateInterpolation(float targetValue, Vector3 p1, Vector3 p2, float p1Val, float p2Val, Vector3 Origin)
         {
             float mu;
             Vector3 returnPoint;
@@ -85,6 +87,8 @@ namespace CpuMarchingCubes
             if (Mathf.Abs(p1Val - p2Val) < .0001) return p1;
 
             mu = (targetValue - p1Val) / (p2Val - p1Val);
+            print("p1: " + (p2 + Origin) + " p2: " + (p2 + Origin));
+            if (p1+Origin == new Vector3(1, 1, 1) && p2+Origin == new Vector3(1, 0, 1)) print("mu : " + mu);
 
             returnPoint.x = (p1.x + (mu * (p2.x - p1.x)));// + transform.localPosition.x;
             returnPoint.y = (p1.y + (mu * (p2.y - p1.y)));// + transform.localPosition.y;

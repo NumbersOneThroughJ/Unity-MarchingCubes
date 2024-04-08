@@ -35,19 +35,14 @@ namespace VertexLookup
         {
             int index = 0;
             int increase = 1;
-            int temp = 0;
             foreach (float val in values)
             {
-                print(val + " " + minValue);
                 if (val >= minValue)
                 {
-                    print(temp + "is active");
                     index += increase;
                 }
-                increase = increase << 1;
-                temp++;
+                increase <<= 1;
             }
-            print("Index is " + index);
             return index;
         }
 
@@ -82,7 +77,7 @@ namespace VertexLookup
         public float[] values = new float[8];
 
         //relative location to the center of a cube
-        static readonly Vector3[] edgeLocationRelative = 
+        protected static readonly Vector3[] edgeLocationRelative = 
         {
             new Vector3(-.5f,-.5f,-.5f),//0
             new Vector3(.5f,-.5f,-.5f),//1
@@ -109,8 +104,10 @@ namespace VertexLookup
         new int[] {5, 1},
         new int[] {7, 3},
         new int[] {6, 2}
-    };
+        };
 
+        
+        
         // For each MC case, a list of triangles, specified as triples of edge indices, terminated by -1
         static readonly int[][] TriangleTable = {
         new int[] {-1},
@@ -143,7 +140,7 @@ namespace VertexLookup
         new int[] {10, 2, 3, 10, 3, 4, 3, 7, 4, 9, 10, 4, -1},
         new int[] {1, 10, 3, 3, 10, 11, 4, 8, 7, -1},
         new int[] {10, 11, 1, 11, 7, 4, 1, 11, 4, 1, 4, 0, -1},
-        new int[] {7, 4, 8, 9, 3, 0, 9, 11, 3, 9, 10, 11, -1},
+        new int[] {7, 4, 8, 9, 3, 0, 9, 11, 3, 9, 10, 11, -1},//Index 30
         new int[] {7, 4, 11, 4, 9, 11, 9, 10, 11, -1},
         new int[] {9, 4, 5, -1},
         new int[] {9, 4, 5, 8, 0, 3, -1},
@@ -173,7 +170,7 @@ namespace VertexLookup
         new int[] {10, 2, 1, 3, 9, 0, 3, 5, 9, 3, 7, 5, -1},
         new int[] {7, 5, 8, 5, 10, 2, 8, 5, 2, 8, 2, 0, -1},
         new int[] {10, 2, 5, 2, 3, 5, 3, 7, 5, -1},
-        new int[] {8, 7, 5, 8, 5, 9, 11, 3, 10, 3, 1, 10, -1},
+        new int[] {8, 7, 5, 8, 5, 9, 11, 3, 10, 3, 1, 10, -1},//index 60
         new int[] {5, 11, 7, 10, 11, 5, 1, 9, 0, -1},
         new int[] {11, 5, 10, 7, 5, 11, 8, 3, 0, -1},
         new int[] {5, 11, 7, 10, 11, 5, -1},
@@ -271,9 +268,9 @@ namespace VertexLookup
         new int[] {7, 2, 3, 6, 2, 7, 5, 4, 9, -1},
         new int[] {4, 8, 7, 3, 6, 11, 3, 5, 6, 3, 1, 5, -1},
         new int[] {5, 0, 1, 4, 0, 5, 7, 6, 11, -1},
-        new int[] {9, 5, 4, 6, 11, 7, 0, 8, 3, -1},
+        new int[] {9, 5, 4, 6, 11, 7, 0, 8, 3, -1},//this is the equivalent one to 160
         new int[] {11, 7, 6, 9, 5, 4, -1},
-        new int[] {6, 10, 4, 4, 10, 9, -1},
+        new int[] {6, 10, 4, 4, 10, 9, -1},//This is index 160
         new int[] {6, 10, 4, 4, 10, 9, 3, 8, 0, -1},
         new int[] {0, 10, 1, 0, 6, 10, 0, 4, 6, -1},
         new int[] {6, 10, 1, 6, 1, 8, 1, 3, 8, 4, 6, 8, -1},

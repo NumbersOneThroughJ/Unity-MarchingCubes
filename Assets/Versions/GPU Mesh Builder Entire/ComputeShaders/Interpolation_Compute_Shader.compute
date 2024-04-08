@@ -1,0 +1,140 @@
+#include "Marching_Cubes_Common_Functions.cginc"
+
+
+#pragma kernel CalculateVerts
+
+//Needs to be at max 60000 points
+//Minimum a multiple of 15 float3 or vector3
+RWStructuredBuffer<float3> VertexPoints;
+
+//Edge Vertex index is the first index in Edge vertex index.
+//It will calculate where along the line between the two corners
+//a point should be based upon the values associated with said points
+float3 calculateInterpolation(float targetValue, float3 p1, float3 p2, float p1Val, float p2Val)
+{
+    float mu;
+    if (abs(targetValue - p1Val) < .0001) return p1;
+    if (abs(targetValue - p2Val) < .0001) return p2;
+    if (abs(p1Val - p2Val) < .0001) return p1;
+    
+    mu = (targetValue - p1Val) / (p2Val - p1Val);
+    float3 returnPoint;
+    returnPoint = float3(
+    (p1.x + (mu * (p2.x - p1.x))),// + transform.localPosition.x;
+    (p1.y + (mu * (p2.y - p1.y))),// + transform.localPosition.y;
+    (p1.z + (mu * (p2.z - p1.z)))); // + transform.localPosition.z;
+    return returnPoint;
+}
+
+//Interaction tool to make shorthand much better for interpolation
+//returns 3d point location relative to center of the points
+float3 interpolate(float3 pointOrigin, int edgeIndex, float targetValue)
+{
+    float3 p1 = edgeLocFromPoint(pointOrigin, edgeIndex, 0);
+    float3 p2 = edgeLocFromPoint(pointOrigin, edgeIndex, 1);
+    return calculateInterpolation(
+        targetValue,
+        p1,
+        p2,
+        PosVal(p1),
+        PosVal(p2)
+    );
+}
+float3 interpolate(float3 pointOrigin, int TriIndex, int TrianglePointIndex, float targetValue)
+{
+    return
+    interpolate(
+        pointOrigin,
+        TriTable[TriIndex][TrianglePointIndex],
+        TargetValue
+    );
+
+}
+
+float3 toFloat3(uint3 input)
+{
+    return float3(input.x, input.y, input.z);
+}
+
+[numthreads(8, 8, 8)]
+void CalculateVerts(uint3 id1 : SV_DispatchThreadID)
+{
+    float3 id = toFloat3(id1);
+    int triIndex = getTrianglesIndex(id, TargetValue);
+    int VertexBufferIndex = BufferPos(id) * 15;
+    /*
+    float3x3 val = getTriangleValues(id, TargetValue);
+    VertexPoints[VertexBufferIndex] = val[0]; //interpolate(id, 5, TargetValue); //val[0];
+                                          //
+    VertexPoints[VertexBufferIndex + 1] = val[1]; //val[1];
+                                          //
+    VertexPoints[VertexBufferIndex + 2] = val[2]; //val[2];
+    */
+    //Max of 5 triangles
+    for (int Triangle = 0; Triangle < 5; Triangle+=1)
+    {
+        int triVertIndex = Triangle * 3;
+        if (TriTable[triIndex][triVertIndex] == -1)
+            break;
+        //Triangle point 1
+        VertexPoints[VertexBufferIndex + triVertIndex + 0] = (interpolate(id, triIndex, 0 + triVertIndex, TargetValue));
+        //Triangle point 2
+        VertexPoints[VertexBufferIndex + triVertIndex + 1] = (interpolate(id, triIndex, 1 + triVertIndex, TargetValue));
+        //Triangle point 3
+        VertexPoints[VertexBufferIndex + triVertIndex + 2] = (interpolate(id, triIndex, 2 + triVertIndex, TargetValue));
+        
+        
+        //Figuring out why 
+        //(interpolate(id, triIndex, 2 + triVertIndex, TargetValue))
+        //is returning 3.65 in the y. (1.00, 3.65, 1.00)
+        //3.65 is way too far. Should only do max 1. This is at (0,0,0) should only go to max (1,1,1)
+        //Lets start grabbing values from the points entirely first. To make sure its choosing point properly
+        
+        //Point1 is 1,1,1
+        //Point2 is 1,0,1
+        //edgeLocFromPoint is functioning properly.
+        //getEdgeIndex is working properly too then
+        
+        //interpolate and overload are grabbing correct values
+        //So where is it getting the crazy 3.65???????
+        
+        //wether it interpolate with origin at 0,0,0 and then adds to origin or not does not change output.
+        //At least I have refined function names if nothing else (hopefuly I can do more. My sanity is dwendilling...)
+        //...I forgot I am only looking at (0,0,0) origin... so... disregard this possible /\
+        // but I don't belive this is the issue? maybe the mu?
+        
+        //checking my value grabbing for PosVal?
+        //will cross reference with the map value. Adding an output for location 1,1,1 and 1,0,1 in script
+        
+        //It is grabbing the proper values...
+        //I'm gonna make a mesh with the cpu builder
+        
+        //0,0,0 should not be making a polygon. All values are greater than 90, at least I think?
+        //Its returning value 160?
+        
+        //created a function called getTriangleValues, it returns a float 3x3. Goal is to use it to see
+        //if it is properly pulling values? omg. This thing could be my buffer pos, I might just have to switch z and y?
+        //Unlikely hypothesis, continuing testing :) {Though I smile, let not my pain go unknown. I thirst for rest}
+        
+        //sidenote - I have replaced videogames with coding. I am officially a geek/nerd lmao.
+        
+        //it is 12:10 AM. I am signing off for tonight. Stopped in middle of float3x3 coding. The stuff below is currently
+        //setup to output the code. Why is it not creating the correct tri index?
+        //It also could be because the 3 for loops to get the values are out of order?
+        //CubeMeshBuilderInteractor.cs does go loop through by where the array of relative positions is. I am too tired to code rn.
+        //{THOUGH I HUNGER FOR MORE} My body and mind fails me as of now.
+        
+        //4-6-24
+        //Fixxed grabbing point values. Was not using the corner function so was off by +-.5 giving negetive indexes.
+        //Still interpolating between (1,1,1) {C7} and (1,0,1) {C5} {Edge 5}
+        
+        //At long long last... I can rest easy. I found the issue.
+        //My Tritable is different from my cpu mesh builder tri table. I never even thought to look there.
+        //Sadly, I will not be able to test it just yet, my laptop is dying rn, and the battery is dwindling.
+        //Signing Off Nums1-J 11:02pm 4-6-24
+        //I belive I have conquered you you beast.
+        
+        //Triangle point 1
+    }
+    
+}

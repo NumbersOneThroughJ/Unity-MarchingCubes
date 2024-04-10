@@ -7,11 +7,8 @@ namespace GPU_MESH_BUILDER
 {
     public class Map : MonoBehaviour
     {
-        [SerializeField]
         int sizeX = 9;
-        [SerializeField]
         int sizeY = 9;
-        [SerializeField]
         int sizeZ = 9;
         [SerializeField]
         [Range(0f, 1f)]
@@ -19,8 +16,6 @@ namespace GPU_MESH_BUILDER
         [SerializeField]
         [Range(0.1f, 100f)]
         float max = 10;
-        [SerializeField]
-        MapGenerationSettings sets;
 
         [SerializeField]
         private float[,,] MapVals;
@@ -75,30 +70,11 @@ namespace GPU_MESH_BUILDER
                     for (int x = 0; x < sizeX; x++)
                     {
                         valuesMap[x, y, z] = (Noise.CalcPixel3D(x + (int)origin.x, y + (int)origin.y, z + (int)origin.z, scale) / 255 * max);
-                        //evaluatePoint(x, y, z);
                     }
                 }
             }
             return valuesMap;
         }
 
-        public float evaluatePoint(int x, int y, int z)
-        {
-            float f = 0;
-            float frequency = sets.baseRoughness;
-            float amplitude = 1;
-
-            for (int i = 0; i < sets.numLayers; i++)
-            {
-                x = (int)(((float)x) * frequency);
-                y = (int)(((float)y) * frequency);
-                z = (int)(((float)z) * frequency);
-                f = Noise.CalcPixel3D(x, y, z, scale) * amplitude;
-                frequency *= sets.roughness;
-                amplitude *= sets.persistance;
-            }
-
-            return f;
-        }
     }
 }

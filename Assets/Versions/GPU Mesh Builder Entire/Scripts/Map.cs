@@ -20,7 +20,7 @@ namespace GPU_MESH_BUILDER
         [Range(0.1f, 100f)]
         float max = 10;
         [SerializeField]
-        MapGenerationSettings sets = new MapGenerationSettings();
+        MapGenerationSettings sets;
 
         [SerializeField]
         private float[,,] MapVals;
@@ -84,15 +84,15 @@ namespace GPU_MESH_BUILDER
 
         public float evaluatePoint(int x, int y, int z)
         {
-            x = (int)(((float)x) * sets.roughness);
-            y = (int)(((float)y) * sets.roughness);
-            z = (int)(((float)z) * sets.roughness);
             float f = 0;
             float frequency = sets.baseRoughness;
             float amplitude = 1;
 
             for (int i = 0; i < sets.numLayers; i++)
             {
+                x = (int)(((float)x) * frequency);
+                y = (int)(((float)y) * frequency);
+                z = (int)(((float)z) * frequency);
                 f = Noise.CalcPixel3D(x, y, z, scale) * amplitude;
                 frequency *= sets.roughness;
                 amplitude *= sets.persistance;

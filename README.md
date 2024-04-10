@@ -61,6 +61,6 @@ demonstration object to showcase each step of the project. The name of the folde
     Using the editor, position yourself to be able to view the mesh after pressing play. Then within the GPU Terrain's subobject (Full terrain) editor, you can change the scale and max values of the
     noise generation settings. Changing the scale will shrink or increase the size of the displayed shapes. Changing the max is essentially changing the target value and will change the shape of the generated
     meshes. You can also move around Full Terrain within the GPU Terrain object to move the terrain as if it were a continuous terrain (With a slight bit of choppiness).
-    -The sub terrain objects are made to be movable and will locate where they should generate by combining the local position of all parent objects that don't have a parent.
-    -Choose the grandest parent object of the bunch to move all without changing the generated interior.
+    * The sub terrain objects are made to be movable and will locate where they should generate by combining the local position of all parent objects that don't have a parent.
+    * Choose the grandest parent object of the bunch to move all without changing the generated interior.
     It can be improved by deciding which vertices to combine and porting over the vertex indexing code to the gpu, however at this state it is very much functional.
